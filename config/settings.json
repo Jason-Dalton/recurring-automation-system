@@ -1,0 +1,18 @@
+{
+  "local_first": true,
+  "progress_prompt_times": [
+    "12:00",
+    "18:00"
+  ],
+  "backup_reminder_enabled": true,
+  "work_session_detection": {
+    "mode": "manual_trigger",
+    "idle_threshold_minutes": 60,
+    "app_hints": []
+  },
+  "rules": {
+    "progress_prompt": "active",
+    "work_session_checklist": "active",
+    "assignment_suggestions": "active"
+  }
+}
