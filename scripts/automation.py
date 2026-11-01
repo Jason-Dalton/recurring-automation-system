@@ -51,14 +51,8 @@ def ensure_layout() -> None:
 
 def default_config() -> dict:
     return {
-        "local_first": True,
         "progress_prompt_times": ["12:00", "18:00"],
         "backup_reminder_enabled": True,
-        "work_session_detection": {
-            "mode": "manual_trigger",
-            "idle_threshold_minutes": 60,
-            "app_hints": [],
-        },
         "rules": {
             "progress_prompt": "active",
             "work_session_checklist": "active",
