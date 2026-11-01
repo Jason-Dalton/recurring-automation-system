@@ -5,6 +5,23 @@ from pathlib import Path
 from scripts import automation
 
 
+_PATH_ATTRS = (
+    "REPO_ROOT",
+    "CONFIG_PATH",
+    "LOGS_DIR",
+    "MASTER_LOG",
+    "AUDIT_LOG",
+    "INTEGRATION_REQUESTS",
+    "PROJECTS_DIR",
+    "ACTIVE_DIR",
+    "PAUSED_DIR",
+    "COMPLETED_DIR",
+)
+
+# Captured before any test rebinds the process-global paths in scripts.automation.
+_ORIGINAL_PATHS = {name: getattr(automation, name) for name in _PATH_ATTRS}
+
+
 def rebind_paths(root: Path) -> None:
     automation.REPO_ROOT = root
     automation.CONFIG_PATH = root / "config" / "settings.json"
@@ -19,6 +36,10 @@ def rebind_paths(root: Path) -> None:
 
 
 class AutomationTests(unittest.TestCase):
+    def tearDown(self) -> None:
+        for name, value in _ORIGINAL_PATHS.items():
+            setattr(automation, name, value)
+
     def test_init_creates_local_first_structure(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
