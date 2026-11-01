@@ -5,21 +5,14 @@ from pathlib import Path
 from scripts import automation
 
 
-_PATH_ATTRS = (
-    "REPO_ROOT",
-    "CONFIG_PATH",
-    "LOGS_DIR",
-    "MASTER_LOG",
-    "AUDIT_LOG",
-    "INTEGRATION_REQUESTS",
-    "PROJECTS_DIR",
-    "ACTIVE_DIR",
-    "PAUSED_DIR",
-    "COMPLETED_DIR",
-)
-
-# Captured before any test rebinds the process-global paths in scripts.automation.
-_ORIGINAL_PATHS = {name: getattr(automation, name) for name in _PATH_ATTRS}
+_ORIGINAL_PATHS = {
+    n: getattr(automation, n)
+    for n in (
+        "REPO_ROOT", "CONFIG_PATH", "LOGS_DIR", "MASTER_LOG", "AUDIT_LOG",
+        "INTEGRATION_REQUESTS", "PROJECTS_DIR", "ACTIVE_DIR", "PAUSED_DIR",
+        "COMPLETED_DIR",
+    )
+}
 
 
 def rebind_paths(root: Path) -> None:
